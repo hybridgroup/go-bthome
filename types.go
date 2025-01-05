@@ -20,6 +20,12 @@ type DataType struct {
 	Size int
 }
 
+// DataValue represents an individual data value in the service data payload.
+type DataValue struct {
+	Type  DataType
+	Value []byte
+}
+
 // See full list of field types:
 // https://bthome.io/format/
 
@@ -110,3 +116,97 @@ var (
 	Vibration       = DataType{"vibration", 0x2C, 1}
 	Window          = DataType{"window", 0x2D, 1}
 )
+
+var (
+	DataTypes = []DataType{
+		Acceleration,
+		Battery,
+		CO2,
+		Conductivity,
+		Count8,
+		Count16,
+		Count32,
+		CountSint8,
+		CountSint16,
+		CountSint32,
+		Current,
+		CurrentSint16,
+		Dewpoint,
+		DistanceMM,
+		DistanceM,
+		Duration,
+		Energy,
+		Energy24,
+		Gas24,
+		Gas32,
+		Gyroscope,
+		Humidity16,
+		Humidity8,
+		Illuminance,
+		MassKG,
+		MassLB,
+		Moisture16,
+		Moisture8,
+		PM25,
+		PM10,
+		Power,
+		PowerSint32,
+		Pressure,
+		Raw,
+		Rotation,
+		Speed,
+		TemperatureSint8,
+		TemperatureSint8_35,
+		Temperature16,
+		Temperature16_01,
+		Text,
+		Timestamp,
+		TVOC,
+		Voltage,
+		Voltage10,
+		Volume,
+		Volume16,
+		VolumeML,
+		VolumeStorage,
+		VolumeFlowRate,
+		UVIndex,
+		Water,
+		BatteryLow,
+		BatteryCharging,
+		CarbonMonoxide,
+		Cold,
+		Connectivity,
+		Door,
+		GarageDoor,
+		Gas,
+		GenericBoolean,
+		Heat,
+		Light,
+		Lock,
+		Moisture,
+		Motion,
+		Moving,
+		Occupancy,
+		Opening,
+		Plug,
+		Powered,
+		Presence,
+		Problem,
+		Running,
+		Safety,
+		Smoke,
+		Sound,
+		Tamper,
+		Vibration,
+		Window,
+	}
+)
+
+func FindDataType(id byte) DataType {
+	for _, t := range DataTypes {
+		if t.ID == id {
+			return t
+		}
+	}
+	return DataType{}
+}

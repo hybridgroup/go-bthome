@@ -4,12 +4,15 @@ Minimal package for creating and parsing [BTHome](https://bthome.io/) service da
 
 ## How to use
 
+### Create a BTHome Payload
+
 ```go
 // create the data payload
 buf := &bthome.Payload{}
 
 // add some data
-err := buf.AddData(bthome.Acceleration, []byte{0x01, 0x02})
+value := bthome.DataValue{bthome.Acceleration, []byte{0x01, 0x02}}
+err := buf.AddData(value)
 if err != nil {
     t.Error(err)
 }
@@ -18,7 +21,18 @@ if err != nil {
 data := buf.ServiceData()
 ```
 
+### Parse a BTHome Payload
+
+```go
+data := []byte{...}
+buf := bthome.NewPayload(data)
+values, _ := buf.Parse()
+for _, v := range values {
+	println(v.Type.Name, v.Value)
+}
+```
+
 ## Missing features
 
-- encryption
+- Encryption
 - Events

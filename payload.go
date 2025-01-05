@@ -10,7 +10,7 @@ type Payload struct {
 
 // Bytes returns the raw data packet as a byte slice.
 func (buf *Payload) Bytes() []byte {
-	return buf.data[:buf.len]
+	return buf.data[:buf.len+1]
 }
 
 // AddData adds data ([]byte) entries to the service data payload.
@@ -20,6 +20,11 @@ func (buf *Payload) AddData(typ DataType, value []byte) error {
 		return errInvalidSize
 	}
 
+	// make sure we have device information
+	if buf.data[0] != DeviceInformation {
+		buf.Reset()
+	}
+
 	// Check whether the field can fit this data.
 	fieldLength := len(value) + 1
 	if int(buf.len)+fieldLength > len(buf.data) {
@@ -27,8 +32,8 @@ func (buf *Payload) AddData(typ DataType, value []byte) error {
 	}
 
 	// Add the data.
-	buf.data[buf.len+0] = typ.ID
-	copy(buf.data[buf.len+1:], value)
+	buf.data[buf.len+1] = typ.ID
+	copy(buf.data[buf.len+2:], value)
 	buf.len += uint8(fieldLength)
 
 	return nil
@@ -37,7 +42,7 @@ func (buf *Payload) AddData(typ DataType, value []byte) error {
 // GetData retrieves data from the service data payload.
 func (buf *Payload) GetData(typ DataType) ([]byte, error) {
 	data := buf.Bytes()
-	for i := 0; i < len(data); i++ {
+	for i := 1; i < len(data); i++ {
 		if data[i] == typ.ID {
 			// TODO: make sure we don't go out of bounds
 			return data[i+1 : i+1+typ.Size], nil
@@ -48,6 +53,10 @@ func (buf *Payload) GetData(typ DataType) ([]byte, error) {
 
 // Reset clears the service data payload.
 func (buf *Payload) Reset() {
+	buf.data[0] = DeviceInformation
+	for i := 1; i < len(buf.data); i++ {
+		buf.data[i] = 0
+	}
 	buf.len = 0
 }
 

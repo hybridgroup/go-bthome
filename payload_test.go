@@ -34,7 +34,7 @@ func TestReset(t *testing.T) {
 		t.Error(err)
 	}
 	buf.Reset()
-	if len(buf.Bytes()) != 0 {
+	if len(buf.Bytes()) != 1 {
 		t.Error("reset failed")
 	}
 }
@@ -49,10 +49,10 @@ func TestServiceData(t *testing.T) {
 	if data.UUID != ServiceUUID {
 		t.Error("UUID mismatch")
 	}
-	if len(data.Data) != 3 {
-		t.Error("data length mismatch")
+	if len(data.Data) != 4 {
+		t.Error("data length mismatch", len(data.Data))
 	}
-	if data.Data[0] != 0x51 || data.Data[1] != 0x01 || data.Data[2] != 0x02 {
+	if data.Data[0] != DeviceInformation || data.Data[1] != 0x51 || data.Data[2] != 0x01 || data.Data[3] != 0x02 {
 		t.Error("data mismatch")
 	}
 }

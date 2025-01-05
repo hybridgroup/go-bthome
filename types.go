@@ -4,6 +4,10 @@ import "tinygo.org/x/bluetooth"
 
 var ServiceUUID = bluetooth.New16BitUUID(0xFCD2)
 
+// DeviceInformation is the BTHome device info byte, which has several bits indicating
+// the capabilities of the device.
+const DeviceInformation = 0x40
+
 // DataType represents a data type that can be added to the service data payload.
 type DataType struct {
 	// Name of the data type

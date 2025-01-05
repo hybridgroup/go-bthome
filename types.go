@@ -20,8 +20,10 @@ type DataType struct {
 	Size int
 }
 
-// See this list of field types:
+// See full list of field types:
 // https://bthome.io/format/
+
+// Sensor data types
 var (
 	Acceleration        = DataType{"acceleration", 0x51, 2}
 	Battery             = DataType{"battery", 0x01, 1}
@@ -75,4 +77,36 @@ var (
 	VolumeFlowRate      = DataType{"volume flow rate", 0x49, 2}
 	UVIndex             = DataType{"UV index", 0x46, 1}
 	Water               = DataType{"water", 0x4F, 4}
+)
+
+// Binary Sensor data should always be an uint8 of a single byte. Its value should be 1 for on, and 0 for off.
+var (
+	BatteryLow      = DataType{"battery", 0x15, 1}
+	BatteryCharging = DataType{"battery charging", 0x16, 1}
+	CarbonMonoxide  = DataType{"carbon monoxide", 0x17, 1}
+	Cold            = DataType{"cold", 0x18, 1}
+	Connectivity    = DataType{"connectivity", 0x19, 1}
+	Door            = DataType{"door", 0x1A, 1}
+	GarageDoor      = DataType{"garage door", 0x1B, 1}
+	Gas             = DataType{"gas", 0x1C, 1}
+	GenericBoolean  = DataType{"generic boolean", 0x0F, 1}
+	Heat            = DataType{"heat", 0x1D, 1}
+	Light           = DataType{"light", 0x1E, 1}
+	Lock            = DataType{"lock", 0x1F, 1}
+	Moisture        = DataType{"moisture", 0x20, 1}
+	Motion          = DataType{"motion", 0x21, 1}
+	Moving          = DataType{"moving", 0x22, 1}
+	Occupancy       = DataType{"occupancy", 0x23, 1}
+	Opening         = DataType{"opening", 0x11, 1}
+	Plug            = DataType{"plug", 0x24, 1}
+	Powered         = DataType{"power", 0x10, 1}
+	Presence        = DataType{"presence", 0x25, 1}
+	Problem         = DataType{"problem", 0x26, 1}
+	Running         = DataType{"running", 0x27, 1}
+	Safety          = DataType{"safety", 0x28, 1}
+	Smoke           = DataType{"smoke", 0x29, 1}
+	Sound           = DataType{"sound", 0x2A, 1}
+	Tamper          = DataType{"tamper", 0x2B, 1}
+	Vibration       = DataType{"vibration", 0x2C, 1}
+	Window          = DataType{"window", 0x2D, 1}
 )

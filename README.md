@@ -1,6 +1,6 @@
 # go-bthome
 
-Minimal package for creating and parsing BTHome service data using Go/TinyGo.
+Minimal package for creating and parsing [BTHome](https://bthome.io/) service data using Go/TinyGo.
 
 ## How to use
 
@@ -17,3 +17,8 @@ if err != nil {
 // now publish the bluetooth.ServiceDataElement
 data := buf.ServiceData()
 ```
+
+## Missing features
+
+- encryption
+- Events

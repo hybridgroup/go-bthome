@@ -81,58 +81,58 @@ func (t dataType) TypeID() int {
 
 // Sensor data types
 var (
-	Acceleration        = dataType{"acceleration", 0x51, 2, "m/s²", 0.001, TypeFloat32}
-	Battery             = dataType{"battery", 0x01, 1, "%", 1, TypeInt8}
-	CO2                 = dataType{"co2", 0x12, 2, "ppm", 1, TypeInt16}
-	Conductivity        = dataType{"conductivity", 0x56, 2, "µS/cm", 1, TypeInt16}
-	Count8              = dataType{"count", 0x09, 1, "", 1, TypeUint8}
-	Count16             = dataType{"count", 0x3D, 2, "", 1, TypeUint16}
-	Count32             = dataType{"count", 0x3E, 4, "", 1, TypeUint32}
-	CountSint8          = dataType{"count", 0x59, 1, "", 1, TypeInt8}
-	CountSint16         = dataType{"count", 0x5A, 2, "", 1, TypeInt16}
-	CountSint32         = dataType{"count", 0x5B, 4, "", 1, TypeUint32}
-	Current             = dataType{"current", 0x43, 2, "A", 0.001, TypeFloat32}
-	CurrentSint16       = dataType{"current", 0x5D, 2, "A", 0.001, TypeFloat32}
-	Dewpoint            = dataType{"dewpoint", 0x08, 2, "°C", 0.01, TypeFloat32}
-	DistanceMM          = dataType{"distance (mm)", 0x40, 2, "mm", 1, TypeUint16}
-	DistanceM           = dataType{"distance (m)", 0x41, 2, "m", 0.01, TypeFloat32}
-	Duration            = dataType{"duration", 0x42, 3, "s", 1, TypeFloat32}
-	Energy              = dataType{"energy", 0x4D, 4, "Wh", 0.001, TypeFloat32}
-	Energy24            = dataType{"energy", 0x0A, 3, "Wh", 0.001, TypeFloat32}
-	Gas24               = dataType{"gas", 0x4B, 3, "m2", 1, TypeFloat32}
-	Gas32               = dataType{"gas", 0x4C, 4, "m2", 1, TypeFloat32}
-	Gyroscope           = dataType{"gyroscope", 0x52, 2, "°/s", 0.01, TypeFloat32}
-	Humidity16          = dataType{"humidity", 0x03, 2, "%", 1, TypeFloat32}
-	Humidity8           = dataType{"humidity", 0x2E, 1, "%", 1, TypeInt8}
-	Illuminance         = dataType{"illuminance", 0x05, 3, "lux", 1, TypeFloat32}
-	MassKG              = dataType{"mass (kg)", 0x06, 2, "kg", 0.001, TypeFloat32}
-	MassLB              = dataType{"mass (lb)", 0x07, 2, "lb", 0.001, TypeFloat32}
-	Moisture16          = dataType{"moisture", 0x14, 2, "%", 1, TypeFloat32}
-	Moisture8           = dataType{"moisture", 0x2F, 1, "%", 1, TypeInt8}
-	PM25                = dataType{"pm2.5", 0x0D, 2, "µg/m³", 1, TypeInt16}
-	PM10                = dataType{"pm10", 0x0E, 2, "µg/m³", 1, TypeInt16}
-	Power               = dataType{"power", 0x0B, 3, "W", 0.001, TypeFloat32}
-	PowerSint32         = dataType{"power", 0x5C, 4, "W", 0.001, TypeFloat32}
-	Pressure            = dataType{"pressure", 0x04, 3, "hPa", 0.01, TypeFloat32}
-	Raw                 = dataType{"raw", 0x54, -1, "", 1, TypeString}
-	Rotation            = dataType{"rotation", 0x3F, 2, "°", 0.01, TypeFloat32}
-	Speed               = dataType{"speed", 0x44, 2, "m/s", 0.01, TypeFloat32}
-	TemperatureSint8    = dataType{"temperature", 0x57, 1, "°C", 0.01, TypeInt8}
-	TemperatureSint8_35 = dataType{"temperature", 0x58, 1, "°C", 0.01, TypeInt8}
-	Temperature16       = dataType{"temperature", 0x45, 2, "°C", 0.01, TypeInt16}
-	Temperature16_01    = dataType{"temperature", 0x02, 2, "°C", 0.01, TypeInt16}
-	Text                = dataType{"text", 0x53, -1, "", 1, TypeString}
-	Timestamp           = dataType{"timestamp", 0x50, 4, "s", 1, TypeFloat32}
-	TVOC                = dataType{"tvoc", 0x13, 2, "ppb", 1, TypeInt16}
-	Voltage             = dataType{"voltage", 0x0C, 2, "V", 0.001, TypeFloat32}
-	Voltage10           = dataType{"voltage", 0x4A, 2, "V", 0.001, TypeFloat32}
-	Volume              = dataType{"volume", 0x4E, 4, "m³", 0.001, TypeFloat32}
-	Volume16            = dataType{"volume", 0x47, 2, "m³", 0.001, TypeFloat32}
-	VolumeML            = dataType{"volume", 0x48, 2, "mL", 1, TypeUint16}
-	VolumeStorage       = dataType{"volume storage", 0x55, 4, "m³", 0.001, TypeFloat32}
-	VolumeFlowRate      = dataType{"volume flow rate", 0x49, 2, "m³/s", 0.001, TypeFloat32}
-	UVIndex             = dataType{"UV index", 0x46, 1, "", 1, TypeFloat32}
-	Water               = dataType{"water", 0x4F, 4, "L", 0.001, TypeFloat32}
+	Acceleration   = dataType{"acceleration", 0x51, 2, "m/s²", 0.001, TypeFloat32}
+	Battery        = dataType{"battery", 0x01, 1, "%", 1, TypeInt8}
+	CO2            = dataType{"co2", 0x12, 2, "ppm", 1, TypeInt16}
+	Conductivity   = dataType{"conductivity", 0x56, 2, "µS/cm", 1, TypeInt16}
+	Count8         = dataType{"count", 0x09, 1, "", 1, TypeUint8}
+	Count16        = dataType{"count", 0x3D, 2, "", 1, TypeUint16}
+	Count32        = dataType{"count", 0x3E, 4, "", 1, TypeUint32}
+	CountSint8     = dataType{"count", 0x59, 1, "", 1, TypeInt8}
+	CountSint16    = dataType{"count", 0x5A, 2, "", 1, TypeInt16}
+	CountSint32    = dataType{"count", 0x5B, 4, "", 1, TypeUint32}
+	Current        = dataType{"current", 0x43, 2, "A", 0.001, TypeFloat32}
+	CurrentSint16  = dataType{"current", 0x5D, 2, "A", 0.001, TypeFloat32}
+	Dewpoint       = dataType{"dewpoint", 0x08, 2, "°C", 0.01, TypeFloat32}
+	DistanceMM     = dataType{"distance (mm)", 0x40, 2, "mm", 1, TypeUint16}
+	DistanceM      = dataType{"distance (m)", 0x41, 2, "m", 0.01, TypeFloat32}
+	Duration       = dataType{"duration", 0x42, 3, "s", 1, TypeFloat32}
+	Energy         = dataType{"energy", 0x4D, 4, "Wh", 0.001, TypeFloat32}
+	Energy24       = dataType{"energy", 0x0A, 3, "Wh", 0.001, TypeFloat32}
+	Gas24          = dataType{"gas", 0x4B, 3, "m2", 1, TypeFloat32}
+	Gas32          = dataType{"gas", 0x4C, 4, "m2", 1, TypeFloat32}
+	Gyroscope      = dataType{"gyroscope", 0x52, 2, "°/s", 0.01, TypeFloat32}
+	Humidity16     = dataType{"humidity", 0x03, 2, "%", 1, TypeFloat32}
+	Humidity8      = dataType{"humidity", 0x2E, 1, "%", 1, TypeInt8}
+	Illuminance    = dataType{"illuminance", 0x05, 3, "lux", 1, TypeFloat32}
+	MassKG         = dataType{"mass (kg)", 0x06, 2, "kg", 0.001, TypeFloat32}
+	MassLB         = dataType{"mass (lb)", 0x07, 2, "lb", 0.001, TypeFloat32}
+	Moisture16     = dataType{"moisture", 0x14, 2, "%", 1, TypeFloat32}
+	Moisture8      = dataType{"moisture", 0x2F, 1, "%", 1, TypeInt8}
+	PM25           = dataType{"pm2.5", 0x0D, 2, "µg/m³", 1, TypeInt16}
+	PM10           = dataType{"pm10", 0x0E, 2, "µg/m³", 1, TypeInt16}
+	Power          = dataType{"power", 0x0B, 3, "W", 0.001, TypeFloat32}
+	PowerSint32    = dataType{"power", 0x5C, 4, "W", 0.001, TypeFloat32}
+	Pressure       = dataType{"pressure", 0x04, 3, "hPa", 0.01, TypeFloat32}
+	Raw            = dataType{"raw", 0x54, -1, "", 1, TypeString}
+	Rotation       = dataType{"rotation", 0x3F, 2, "°", 0.01, TypeFloat32}
+	Speed          = dataType{"speed", 0x44, 2, "m/s", 0.01, TypeFloat32}
+	TemperatureInt = dataType{"temperature", 0x57, 1, "°C", 1, TypeInt8}
+	Temperature8   = dataType{"temperature", 0x58, 1, "°C", 0.35, TypeFloat32}
+	Temperature    = dataType{"temperature", 0x45, 2, "°C", 0.1, TypeFloat32}
+	Temperature2   = dataType{"temperature", 0x02, 2, "°C", 0.01, TypeFloat32}
+	Text           = dataType{"text", 0x53, -1, "", 1, TypeString}
+	Timestamp      = dataType{"timestamp", 0x50, 4, "s", 1, TypeFloat32}
+	TVOC           = dataType{"tvoc", 0x13, 2, "ppb", 1, TypeInt16}
+	Voltage        = dataType{"voltage", 0x0C, 2, "V", 0.001, TypeFloat32}
+	Voltage10      = dataType{"voltage", 0x4A, 2, "V", 0.001, TypeFloat32}
+	Volume         = dataType{"volume", 0x4E, 4, "m³", 0.001, TypeFloat32}
+	Volume16       = dataType{"volume", 0x47, 2, "m³", 0.001, TypeFloat32}
+	VolumeML       = dataType{"volume", 0x48, 2, "mL", 1, TypeUint16}
+	VolumeStorage  = dataType{"volume storage", 0x55, 4, "m³", 0.001, TypeFloat32}
+	VolumeFlowRate = dataType{"volume flow rate", 0x49, 2, "m³/s", 0.001, TypeFloat32}
+	UVIndex        = dataType{"UV index", 0x46, 1, "", 1, TypeFloat32}
+	Water          = dataType{"water", 0x4F, 4, "L", 0.001, TypeFloat32}
 )
 
 // Binary Sensor data should always be an uint8 of a single byte. Its value should be 1 for on, and 0 for off.
@@ -205,10 +205,10 @@ var (
 		Raw,
 		Rotation,
 		Speed,
-		TemperatureSint8,
-		TemperatureSint8_35,
-		Temperature16,
-		Temperature16_01,
+		TemperatureInt,
+		Temperature8,
+		Temperature,
+		Temperature2,
 		Text,
 		Timestamp,
 		TVOC,

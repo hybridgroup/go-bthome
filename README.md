@@ -33,6 +33,25 @@ for _, v := range values {
 }
 ```
 
+## Examples
+
+### Thermometer
+
+Thermometer beacon device written using TinyGo.
+
+./examples/thermometer
+
+
+## CLI Tools
+
+### bthomescan
+
+Scans for any devices that are advertising BTHome packets, then displays the data.
+
+```shell
+go run ./cmd/bthomescan
+```
+
 ## Missing features
 
 - Encryption

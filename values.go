@@ -2,6 +2,7 @@ package bthome
 
 import (
 	"encoding/binary"
+	"strconv"
 )
 
 // GetDataValue returns a new DataValuer for the given data type and data.
@@ -42,6 +43,7 @@ type DataValuer interface {
 	Data() []byte
 	Get() any
 	Set(any)
+	String() string
 }
 
 // DataValue represents an individual data value in the service data payload.
@@ -83,6 +85,10 @@ func (d Float32Value) Set(v any) {
 	binary.LittleEndian.PutUint16(d.Value, uint16(val))
 }
 
+func (d Float32Value) String() string {
+	return d.Type().Name() + ": " + strconv.FormatFloat(float64(d.Get().(float32)), 'f', -1, 32)
+}
+
 type Int8Value struct {
 	DataValue
 }
@@ -94,6 +100,10 @@ func (d Int8Value) Get() any {
 func (d Int8Value) Set(v any) {
 	val := v.(int) * int(d.DataType.Factor())
 	d.Value[0] = byte(val)
+}
+
+func (d Int8Value) String() string {
+	return d.Type().Name() + ": " + strconv.Itoa(d.Get().(int))
 }
 
 type Int16Value struct {
@@ -108,6 +118,10 @@ func (d Int16Value) Get() any {
 func (d Int16Value) Set(v any) {
 	val := v.(int) * int(d.DataType.Factor())
 	binary.LittleEndian.PutUint16(d.Value, uint16(val))
+}
+
+func (d Int16Value) String() string {
+	return d.Type().Name() + ": " + strconv.Itoa(d.Get().(int))
 }
 
 type BoolValue struct {
@@ -125,4 +139,8 @@ func (d BoolValue) Set(v any) {
 	} else {
 		d.Value[0] = 0
 	}
+}
+
+func (d BoolValue) String() string {
+	return d.Type().Name() + ": " + strconv.FormatBool(d.Get().(bool))
 }

@@ -11,7 +11,8 @@ Minimal package for creating and parsing [BTHome](https://bthome.io/) service da
 buf := &bthome.Payload{}
 
 // add some data
-value := bthome.DataValue{bthome.Acceleration, []byte{0x01, 0x02}}
+value := bthome.NewDataValue(bthome.Acceleration)
+value.Set(float32(1.23))
 err := buf.AddData(value)
 if err != nil {
     t.Error(err)
@@ -28,7 +29,7 @@ data := []byte{...}
 buf := bthome.NewPayload(data)
 values, _ := buf.Parse()
 for _, v := range values {
-	println(v.Type.Name, v.Value)
+	println(v.Type().Name(), v.Get())
 }
 ```
 

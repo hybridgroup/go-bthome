@@ -6,7 +6,9 @@ import (
 
 func TestAddData(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	value.Set(float32(1.0))
+	err := buf.AddData(value)
 	if err != nil {
 		t.Error(err)
 	}
@@ -14,7 +16,10 @@ func TestAddData(t *testing.T) {
 
 func TestGetData(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	val := float32(1.23)
+	value.Set(val)
+	err := buf.AddData(value)
 	if err != nil {
 		t.Error(err)
 	}
@@ -22,14 +27,16 @@ func TestGetData(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if data.Value[0] != 0x01 || data.Value[1] != 0x02 {
-		t.Error("data mismatch")
+	if data.Get() != val {
+		t.Error("data mismatch", data.Get(), val)
 	}
 }
 
 func TestReset(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	value.Set(float32(1.0))
+	err := buf.AddData(value)
 	if err != nil {
 		t.Error(err)
 	}
@@ -41,7 +48,9 @@ func TestReset(t *testing.T) {
 
 func TestServiceData(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	value.Set(float32(1.0))
+	err := buf.AddData(value)
 	if err != nil {
 		t.Error(err)
 	}
@@ -52,14 +61,15 @@ func TestServiceData(t *testing.T) {
 	if len(data.Data) != 4 {
 		t.Error("data length mismatch", len(data.Data))
 	}
-	if data.Data[0] != DeviceInformation || data.Data[1] != 0x51 || data.Data[2] != 0x01 || data.Data[3] != 0x02 {
-		t.Error("data mismatch")
+	if data.Data[0] != DeviceInformation || data.Data[1] != 81 || data.Data[2] != 231 || data.Data[3] != 3 {
+		t.Error("data mismatch", data.Data[0], data.Data[1], data.Data[2], data.Data[3])
 	}
 }
 
 func TestAddDataInvalidSize(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01}})
+	val := Float32Value{DataValue{DataType: Acceleration, Value: []byte{0x01}}}
+	err := buf.AddData(val)
 	if err != errInvalidSize {
 		t.Error("expected invalid size error")
 	}
@@ -68,19 +78,24 @@ func TestAddDataInvalidSize(t *testing.T) {
 func TestAddDataBufferFull(t *testing.T) {
 	buf := &Payload{}
 	for i := 0; i < 10; i++ {
-		err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+		value := NewDataValue(Acceleration)
+		value.Set(float32(1.0))
+		err := buf.AddData(value)
 		if err != nil {
 			t.Error(err)
 		}
 	}
 
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	value.Set(float32(1.0))
+	err := buf.AddData(value)
+
 	if err != errBufferFull {
 		t.Error("expected buffer full error")
 	}
 }
 
-func TestGetDataNotFound(t *testing.T) {
+func TestGetDataNoData(t *testing.T) {
 	buf := &Payload{}
 	_, err := buf.GetData(Acceleration)
 	if err != errDataNotFound {
@@ -88,13 +103,16 @@ func TestGetDataNotFound(t *testing.T) {
 	}
 }
 
-func TestGetDataOutOfBounds(t *testing.T) {
+func TestGetDataNotFound(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	value.Set(float32(1.0))
+	err := buf.AddData(value)
 	if err != nil {
 		t.Error(err)
 	}
-	_, err = buf.GetData(DataType{"invalid", 0x00, 2})
+
+	_, err = buf.GetData(Battery)
 	if err != errDataNotFound {
 		t.Error("expected data not found error")
 	}
@@ -102,11 +120,17 @@ func TestGetDataOutOfBounds(t *testing.T) {
 
 func TestParse(t *testing.T) {
 	buf := &Payload{}
-	err := buf.AddData(DataValue{Acceleration, []byte{0x01, 0x02}})
+	value := NewDataValue(Acceleration)
+	av := float32(1.23)
+	value.Set(av)
+	err := buf.AddData(value)
+
 	if err != nil {
 		t.Error(err)
 	}
-	err = buf.AddData(DataValue{Humidity8, []byte{0x03}})
+	val2 := NewDataValue(Humidity8)
+	val2.Set(27)
+	err = buf.AddData(val2)
 	if err != nil {
 		t.Error(err)
 	}
@@ -119,10 +143,10 @@ func TestParse(t *testing.T) {
 	if len(data) != 2 {
 		t.Error("data length mismatch", len(data))
 	}
-	if data[0].Type.ID != Acceleration.ID || data[0].Value[0] != 0x01 || data[0].Value[1] != 0x02 {
-		t.Error("data mismatch")
+	if data[0].Type().ID() != Acceleration.ID() || data[0].Get() != av {
+		t.Error("Acceleration data mismatch", data[0].Get(), av)
 	}
-	if data[1].Type.ID != Humidity8.ID || data[1].Value[0] != 0x03 {
-		t.Error("data mismatch")
+	if data[1].Type().ID() != Humidity8.ID() || data[1].Get() != 27 {
+		t.Error("Humidity8 data mismatch", data[1].Data()[0])
 	}
 }
